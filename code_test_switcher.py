@@ -21,13 +21,9 @@ class SwitchBetweenCodeAndTest(sublime_plugin.TextCommand):
 
   def opposite_file_names(self):
     file_name = self.view.file_name().split(os.sep)[-1]
-    if re.search('\w+\_test\.\w+', file_name):
-      return [
-        file_name.replace("_test", ""),
-        file_name.replace("_test.py", ".tmpl"),
-      ]
-    else:
-      return [re.sub('.(py|tmpl)', '_test.py', file_name)]
+    return [
+      file_name.replace("-test", "")
+    ]
 
   def on_selected(self, alternates, index):
     if index == -1:
@@ -52,79 +48,3 @@ class SwitchBetweenCodeAndTest(sublime_plugin.TextCommand):
           if file in files_matcher:
             candidates += [os.path.join(dirname, file)]
     return candidates
-
-class TestCommander(sublime_plugin.TextCommand):
-  def extract_class_and_name(self):
-    region = self.view.sel()[0]
-    line_region = self.view.line(region)
-    text_string = self.view.substr(sublime.Region(region.begin() - 65536, line_region.end()))
-    text_string = text_string.replace("\n", "\\N")
-    text_string = text_string[::-1]
-
-    test_name, test_class = ['', '']
-    # search for 'def test_[name](self):'
-    match_obj = re.search(':\)[,\sa-zA-Z_\d]*fles\(([a-zA-Z_\d]+_tset) fed', text_string)
-    if match_obj:
-      test_name = match_obj.group(1)[::-1]
-    # search for 'class [Name]Test([inherit_from]):'
-    match_obj = re.search('\:\)[a-zA-Z_.,\d\s]+\(([a-zA-Z_\d]+) ssalc', text_string)
-    if match_obj:
-      test_class = match_obj.group(1)[::-1]
-
-    return [test_name, test_class]
-
-  def extract_path(self):
-    directories = self.view.window().folders()
-    file_path = self.view.file_name()
-    test_path = ''
-
-    for directory in directories:
-      if re.search(directory, file_path):
-        test_path = file_path.replace(directory + '/', '')
-        break
-
-    test_path = re.sub('.py$', '', test_path)
-    test_path = re.sub('\/', '.', test_path)
-
-    return test_path
-
-  def is_present(self, content, message):
-    if len(content) == 0:
-      sublime.error_message(message)
-      return False
-    else:
-      return True
-
-# Copy to clipboard test path in a form:
-# testify [test_path] [test_class].[test_name]
-class PrepareTestCommander(TestCommander):
-  def run(self, args):
-    test_name, test_class = self.extract_class_and_name()
-    if not self.is_present(test_name, "No test function!"):
-      return
-    if not self.is_present(test_class, "No test class!"):
-      return
-
-    test_path = self.extract_path()
-    if not self.is_present(test_path, "Wrong project/file path!"):
-      return
-
-    test_command = "testify %s %s.%s" % (test_path, test_class, test_name)
-    sublime.set_clipboard(test_command)
-    sublime.status_message(test_command)
-
-# Copy to clipboard test class path in a form:
-# testify [test_path] [test_class]
-class PrepareTestClassCommander(TestCommander):
-  def run(self, args):
-    test_name, test_class = self.extract_class_and_name()
-    if not self.is_present(test_class, "No test class!"):
-      return
-
-    test_path = self.extract_path()
-    if not self.is_present(test_path, "Wrong project/file path!"):
-      return
-
-    test_command = "testify %s %s" % (test_path, test_class)
-    sublime.set_clipboard(test_command)
-    sublime.status_message(test_command)
