@@ -1,11 +1,11 @@
-Ember CLI - Sublime Text Code Test Switcher
+Jest - Sublime Text Code Test Switcher
 ===============================
 
 Overview
 --------
 
 * Plugin allows you to easily switch between code and test (or vice versa) in
-Ember CLI projects.
+Jest projects.
 
 Installation
 ------------
