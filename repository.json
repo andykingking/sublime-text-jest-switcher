@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "JestSwitcher",
-      "details": "https://github.com/nelseric/sublime-text-code-test-switcher",
+      "details": "https://github.com/nelseric/sublime-text-jest-switcher",
       "labels": ["testing"],
       "releases": [
         {
