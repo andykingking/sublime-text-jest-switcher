@@ -1,9 +1,9 @@
 {
   "schema_version": "1.1.1",
   "repositories": [
-    "https://github.com/maltize/sublime-text-code-test-switcher"
+    "https://github.com/nelseric/sublime-text-code-test-switcher"
   ],
   "package_name_map": {
-    "sublime-text-code-test-switcher": "CodeTestSwitcher"
+    "sublime-text-code-test-switcher": "JestSwitcher"
   }
 }
