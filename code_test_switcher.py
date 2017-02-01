@@ -22,7 +22,7 @@ class SwitchBetweenCodeAndTest(sublime_plugin.TextCommand):
   def opposite_file_names(self):
     file_name = self.view.file_name().split(os.sep)[-1]
     return [
-      file_name.replace("-test", "")
+      file_name.replace(".test", "")
     ]
 
   def on_selected(self, alternates, index):
