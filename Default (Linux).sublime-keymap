@@ -3,15 +3,5 @@
     "context": [ { "key": "selector", "operator": "equal",
                    "operand": "(source.python, text.html)"
                } ]
-  },
-  { "keys": ["ctrl+,"], "command": "prepare_test_commander",
-    "context": [ { "key": "selector", "operator": "equal",
-                   "operand": "source.python"
-               } ]
-  },
-  { "keys": ["ctrl+shift+,"], "command": "prepare_test_class_commander",
-    "context": [ { "key": "selector", "operator": "equal",
-                   "operand": "source.python"
-               } ]
   }
 ]
