@@ -1,0 +1,16 @@
+{
+  "schema_version": "3.0.0",
+  "packages": [
+    {
+      "name": "JestSwitcher",
+      "details": "https://github.com/nelseric/sublime-text-code-test-switcher",
+      "labels": ["testing"],
+      "releases": [
+        {
+          "sublime_text": "*",
+          "tags": true
+        }
+      ]
+    }
+  ]
+}
